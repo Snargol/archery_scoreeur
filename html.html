@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers votre fichier CSS -->
+    <title>Scoreboard</title>
+</head>
+<body>
+    <div class="wrapper" style="background: red; padding: 10px;">
+        <div class="archer-row" id="archer1">
+            <input type="text" class="archer-name" id="archerName1" placeholder="Archer 1" contenteditable="false" value="" disabled="true">
+            <div class="item arrow" id="arrow11" contenteditable="false" placeholder="0" style="width: 60px; text-align: center; margin-left: 5px;">-</div>
+            <div class="item arrow" id="arrow12" contenteditable="false" placeholder="0" style="width: 60px; text-align: center;">-</div>
+            <div class="item arrow" id="arrow13" contenteditable="false" placeholder="0" style="width: 60px; text-align: center;">-</div>
+            <div class="item total-score" id="totalScore1" contenteditable="false" placeholder="0" style="width: 100px; text-align: center; margin-left: 5px;">0</div>
+            <div class="item set-score" id="setScore1" contenteditable="false" placeholder="0" style="width: 100px; text-align: center; margin-left: 5px;">0</div>
+        </div>
+        <div class="archer-row" id="archer2">
+            <input type="text" class="archer-name" id="archerName2" placeholder="Archer 2" contenteditable="false" value="" disabled="true">
+            <div class="item arrow" id="arrow21" contenteditable="false" placeholder="0"  style="width: 60px; text-align: center; margin-left: 5px;">-</div>
+            <div class="item arrow" id="arrow22" contenteditable="false" placeholder="0"  style="width: 60px; text-align: center;">-</div>
+            <div class="item arrow" id="arrow23" contenteditable="false" placeholder="0"  style="width: 60px; text-align: center;">-</div>
+            <div class="item total-score" id="totalScore2" contenteditable="false" placeholder="0" style="width: 100px; text-align: center; margin-left: 5px;">0</div>
+            <div class="item set-score" id="setScore2" contenteditable="false" placeholder="0" style="width: 100px; text-align: center; margin-left: 5px;">0</div>
+        </div>
+   </div>
+
+    <div class="wrapper" style="margin-top: 300px;">
+        <div class="archer-row" id="archer1_fill">
+            <input type="text" class="archer-name" id="archerName1_fill" placeholder="Archer 1" contenteditable="false" value="Yann GENY">
+            <div class="item arrow" id="arrow11_fill" contenteditable="true" placeholder="0" style="width: 60px; text-align: center;">-</div>
+            <div class="item arrow" id="arrow12_fill" contenteditable="true" placeholder="0" style="width: 60px; text-align: center;">-</div>
+            <div class="item arrow" id="arrow13_fill" contenteditable="true" placeholder="0" style="width: 60px; text-align: center;">-</div>
+            <div class="item total-score" id="totalScore1_fill" contenteditable="false" placeholder="0" style="width: 100px; text-align: center;">-</div>
+            <div class="item set-score" id="setScore1_fill" contenteditable="false" placeholder="0" style="width: 100px; text-align: center;">-</div>
+        </div>
+        <div class="archer-row" id="archer2_fill">
+            <input type="text" class="archer-name" id="archerName2_fill" placeholder="Archer 2" contenteditable="false" value="Anatole COUASNON">
+            <div class="item arrow" id="arrow21_fill" contenteditable="true" placeholder="0"  style="width: 60px; text-align: center;">-</div>
+            <div class="item arrow" id="arrow22_fill" contenteditable="true" placeholder="0"  style="width: 60px; text-align: center;">-</div>
+            <div class="item arrow" id="arrow23_fill" contenteditable="true" placeholder="0"  style="width: 60px; text-align: center;">-</div>
+            <div class="item total-score" id="totalScore2_fill" contenteditable="false" placeholder="0" style="width: 100px; text-align: center;">-</div>
+            <div class="item set-score" id="setScore2_fill" contenteditable="false" placeholder="0" style="width: 100px; text-align: center;">-</div>
+        </div>
+        <div id="shootOffDiv">
+        
+        </div>
+        <div style="margin-top: 10px; display: flex; flex-direction: column;">
+          <div style="margin: 10px;">
+            <label for="checkBoxForManualMode">Activer le mode automatique:</label>
+            <input type="checkbox" id="checkBoxForManualMode" name="checkBoxForManualMode" value="yes" checked>
+          </div>
+          
+          <div style="margin: 10px;">
+            <label for="checkBoxForCompoundMode">Activer le mode compound:</label>
+            <input type="checkbox" id="checkBoxForCompoundMode" name="checkBoxForCompoundMode" value="yes">
+          </div>
+        </div>
+        <div style="margin-top: 10px">
+          <button id="setName" style="width: 300px; height: 80px; margin-top: 10px; font-weight: bold; font-size: 150%">
+              Changer les noms
+          </button>
+          <span>&#8594;</span>
+          <button id="manualDisplay" style="width: 300px; height: 80px; margin-top: 10px; font-weight: bold; font-size: 150%" disabled>
+              Affichage manuel
+          </button>
+          <span>&#8594;</span>
+          <button id="computeVolley" style="width: 300px; height: 80px; margin-top: 10px; font-weight: bold; font-size: 150%">
+              Update volée
+          </button>
+          <span>&#8594;</span>
+          <button id="resetScores" style="width: 300px; height: 80px; margin-top: 10px; font-weight: bold; font-size: 150%">
+              Reset scores
+          </button>
+          <span>&#8594;</span>
+          <button id="resetAllData" style="width: 300px; height: 80px; margin-top: 10px; font-weight: bold; font-size: 150%">
+              Reset all
+          </button>
+        </div>
+    </div>
+    <script src="script.js"></script> <!-- Lien vers votre fichier JavaScript -->
+</body>
+</html>
