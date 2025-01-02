@@ -1,4 +1,6 @@
 
+// Bonjour, ce code est crade. On sait, mais on voulait aller vite, pas faire de l'art 😄
+
 let arrow_1_1 = '0';
 let arrow_1_2 = '0';
 let arrow_1_3 = '0';
@@ -28,6 +30,21 @@ editableElements.forEach(element => {
     });
 });
 
+// Listen to space key
+document.addEventListener('keydown', function(event) {
+  // Check if the pressed key is the space key (key code 32).
+  if (event.shiftKey) {
+    console.log('shiftKey detected');
+    const checkbox = document.getElementById("checkBoxForManualMode");
+    if (checkbox.checked) {
+        mapVolley();
+    } else {
+        manualMap()
+    }
+  }
+});
+
+
 const setName = document.getElementById("setName");
 const manualDisplay = document.getElementById("manualDisplay");
 const computeVolley = document.getElementById("computeVolley");
@@ -42,6 +59,9 @@ setName.addEventListener("click", updateName);
 resetAll.addEventListener("click", cleanAll);
 checkboxManualMode.addEventListener("change", toggleManualMode);
 checkboxCompoundMode.addEventListener("change", toggleCompoundMode);
+
+scoreValidated1 = 0;
+scoreValidated2 = 0;
 
 function manualMap() {
     let name1 = document.getElementById('archerName1_fill').value;
@@ -69,6 +89,9 @@ function manualMap() {
     document.getElementById('setScore2').textContent = set2;
     document.getElementById('totalScore1').textContent = score1;
     document.getElementById('totalScore2').textContent = score2;
+
+    scoreValidated1 = +document.getElementById('setScore1').textContent ?? 0;
+    scoreValidated2 = +document.getElementById('setScore2').textContent ?? 0;
 }
 
 function mapVolley(){
@@ -115,12 +138,24 @@ function updateName () {
 
 function cleanAll() {
     console.log("Clean all");
-    document.getElementById('arrow11').textContent = '-';
-    document.getElementById('arrow12').textContent = '-';
-    document.getElementById('arrow13').textContent = '-';
-    document.getElementById('arrow21').textContent = '-';
-    document.getElementById('arrow22').textContent = '-';
-    document.getElementById('arrow23').textContent = '-';
+
+    scoreValidated1 = 0;
+    scoreValidated2 = 0;
+
+    document.getElementById('arrow11').textContent = '';
+    document.getElementById('arrow12').textContent = '';
+    document.getElementById('arrow13').textContent = '';
+    document.getElementById('arrow21').textContent = '';
+    document.getElementById('arrow22').textContent = '';
+    document.getElementById('arrow23').textContent = '';
+    
+    document.getElementById('arrow11').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow12').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow13').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow21').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow22').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow23').style.backgroundColor = '#0E4561';
+
     document.getElementById('totalScore1').textContent = '0';
     document.getElementById('totalScore2').textContent = '0';
     document.getElementById('archerName1').value = "";
@@ -128,16 +163,19 @@ function cleanAll() {
 
     document.getElementById('archerName1_fill').value = "";
     document.getElementById('archerName2_fill').value = "";
-    document.getElementById('setScore1_fill').textContent = '-';
-    document.getElementById('setScore2_fill').textContent = '-';
-    document.getElementById('arrow11_fill').textContent = '-';
-    document.getElementById('arrow12_fill').textContent = '-';
-    document.getElementById('arrow13_fill').textContent = '-';
-    document.getElementById('arrow21_fill').textContent = '-';
-    document.getElementById('arrow22_fill').textContent = '-';
-    document.getElementById('arrow23_fill').textContent = '-';
-    document.getElementById('totalScore1_fill').textContent = '-';
-    document.getElementById('totalScore2_fill').textContent = '-';
+    document.getElementById('setScore1_fill').textContent = '';
+    document.getElementById('setScore2_fill').textContent = '';
+    document.getElementById('arrow11_fill').textContent = '';
+    document.getElementById('arrow12_fill').textContent = '';
+    document.getElementById('arrow13_fill').textContent = '';
+    document.getElementById('arrow21_fill').textContent = '';
+    document.getElementById('arrow22_fill').textContent = '';
+    document.getElementById('arrow23_fill').textContent = '';
+    document.getElementById('totalScore1_fill').textContent = '';
+    document.getElementById('totalScore2_fill').textContent = '';
+
+    document.getElementById('setScore1_fill').textContent = '';
+    document.getElementById('setScore2_fill').textContent = '';
     
     document.getElementById('arrow12_fill').setAttribute("contenteditable","true");
     document.getElementById('arrow13_fill').setAttribute("contenteditable","true");
@@ -153,50 +191,51 @@ function cleanAll() {
     document.getElementById('totalScore1').style.backgroundColor = "#0E4561";
     document.getElementById('totalScore2').style.backgroundColor = "#0E4561";
     
-    if(!isCompoundMode()) {
-    	document.getElementById('setScore1').style.backgroundColor = "#0E4561";
-    	document.getElementById('setScore2').style.backgroundColor = "#0E4561";
+    document.getElementById('setScore1').style.backgroundColor = "#0E4561";
+    document.getElementById('setScore2').style.backgroundColor = "#0E4561";
       
-      document.getElementById('setScore1').textContent = '0';
-    	document.getElementById('setScore2').textContent = '0';
-    }
+    document.getElementById('setScore1').textContent = '0';
+    document.getElementById('setScore2').textContent = '0';
     
     volleyNumber = 0;
 }
 
 function cleanScores() {
-    if(isCompoundMode()) {
-			document.getElementById('arrow11').textContent = '-';
-      document.getElementById('arrow12').textContent = '-';
-      document.getElementById('arrow13').textContent = '-';
-      document.getElementById('arrow21').textContent = '-';
-      document.getElementById('arrow22').textContent = '-';
-      document.getElementById('arrow23').textContent = '-';
 
-      document.getElementById('arrow11_fill').textContent = '-';
-      document.getElementById('arrow12_fill').textContent = '-';
-      document.getElementById('arrow13_fill').textContent = '-';
-      document.getElementById('arrow21_fill').textContent = '-';
-      document.getElementById('arrow22_fill').textContent = '-';
-      document.getElementById('arrow23_fill').textContent = '-';
-    } else {
-      document.getElementById('arrow11').textContent = '-';
-      document.getElementById('arrow12').textContent = '-';
-      document.getElementById('arrow13').textContent = '-';
-      document.getElementById('arrow21').textContent = '-';
-      document.getElementById('arrow22').textContent = '-';
-      document.getElementById('arrow23').textContent = '-';
-      document.getElementById('totalScore1').textContent = '0';
-      document.getElementById('totalScore2').textContent = '0';
+    scoreValidated1 = document.getElementById('setScore1').textContent;
+    scoreValidated2 = document.getElementById('setScore2').textContent;
+    volleyNumber++;
 
-      document.getElementById('arrow11_fill').textContent = '-';
-      document.getElementById('arrow12_fill').textContent = '-';
-      document.getElementById('arrow13_fill').textContent = '-';
-      document.getElementById('arrow21_fill').textContent = '-';
-      document.getElementById('arrow22_fill').textContent = '-';
-      document.getElementById('arrow23_fill').textContent = '-';
-      document.getElementById('totalScore1_fill').textContent = '-';
-      document.getElementById('totalScore2_fill').textContent = '-';
+    document.getElementById('arrow11').textContent = '';
+    document.getElementById('arrow12').textContent = '';
+    document.getElementById('arrow13').textContent = '';
+    document.getElementById('arrow21').textContent = '';
+    document.getElementById('arrow22').textContent = '';
+    document.getElementById('arrow23').textContent = '';
+
+    document.getElementById('arrow11_fill').textContent = '';
+    document.getElementById('arrow12_fill').textContent = '';
+    document.getElementById('arrow13_fill').textContent = '';
+    document.getElementById('arrow21_fill').textContent = '';
+    document.getElementById('arrow22_fill').textContent = '';
+    document.getElementById('arrow23_fill').textContent = '';
+
+    document.getElementById('arrow11').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow12').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow13').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow21').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow22').style.backgroundColor = '#0E4561';
+    document.getElementById('arrow23').style.backgroundColor = '#0E4561';
+
+    document.getElementById('totalScore1_fill').textContent = '';
+    document.getElementById('totalScore2_fill').textContent = '';
+
+    if (isRecurveMode()) {
+        document.getElementById('totalScore1').textContent = '0';
+        document.getElementById('totalScore2').textContent = '0';
+
+        document.getElementById('totalScore1_fill').textContent = '';
+        document.getElementById('totalScore2_fill').textContent = ' ';
     }
 }
 
@@ -213,18 +252,20 @@ function parseToInt(score) {
         return 0;
     }  else if (score === "") {
         return 0;
-    } else {
+    }  else if (score === " ") {
+        return 0;
+    }  else {
         return parseInt(score);
     }
 }
 
 function isFullFilledVolley() {
-		return document.getElementById('arrow11').textContent != '-' &&
-  	document.getElementById('arrow12').textContent != '-' &&
-  	document.getElementById('arrow13').textContent != '-' &&
-  	document.getElementById('arrow21').textContent != '-' &&
-    document.getElementById('arrow22').textContent != '-' &&
-    document.getElementById('arrow23').textContent != '-' &&
+		return document.getElementById('arrow11').textContent != '' &&
+  	document.getElementById('arrow12').textContent != '' &&
+  	document.getElementById('arrow13').textContent != '' &&
+  	document.getElementById('arrow21').textContent != '' &&
+    document.getElementById('arrow22').textContent != '' &&
+    document.getElementById('arrow23').textContent != '' &&
     document.getElementById('arrow11').textContent != null &&
   	document.getElementById('arrow12').textContent != null &&
   	document.getElementById('arrow13').textContent != null &&
@@ -243,18 +284,16 @@ function isBarrage() {
   if(isCompoundMode()) {
 		return (volleyNumber === 5 && parseInt(document.getElementById('totalScore1').textContent) === parseInt(document.getElementById('totalScore2').textContent));
   } else {
-  	sets1 = parseInt(document.getElementById('setScore1').textContent == '-' 
-    									? 0 : document.getElementById('setScore1').textContent);
-    sets2 = parseInt(document.getElementById('setScore2').textContent == '-' 
-                        ? 0 : document.getElementById('setScore2').textContent);
+  	sets1 = parseInt(scoreValidated1);
+    sets2 = parseInt(scoreValidated2);
 
     return sets1 === 5 && sets2 === 5;
   }
 }
 
 function isBarrageFullFilled() {
-  return document.getElementById('arrow11').textContent != '-' &&
-      document.getElementById('arrow21').textContent != '-' &&
+  return document.getElementById('arrow11').textContent != '' &&
+      document.getElementById('arrow21').textContent != '' &&
       document.getElementById('arrow11').textContent != null &&
       document.getElementById('arrow21').textContent != null &&
       document.getElementById('arrow11').textContent != undefined &&
@@ -269,7 +308,7 @@ function computeTotalCompoundAndDisplay() {
   let arrow22 = document.getElementById('arrow22').textContent;
   let arrow23 = document.getElementById('arrow23').textContent;
   
-	if(isFullFilledVolley() || isBarrage()) {
+	// if(isFullFilledVolley() || isBarrage()) {
   	if(isBarrage()) {
     	if(parseToInt(arrow11) > parseToInt(arrow21)) {
       	document.getElementById('totalScore1').style.backgroundColor = "#FFD700";
@@ -336,17 +375,23 @@ function computeTotalCompoundAndDisplay() {
           });
       }
     } else {
-      let totalCompoundArcher1 = parseInt(document.getElementById('totalScore1').textContent);
-      let totalCompoundArcher2 = parseInt(document.getElementById('totalScore2').textContent);
+      let totalCompoundArcher1 = parseInt(scoreValidated1);
+      let totalCompoundArcher2 = parseInt(scoreValidated2);
 
-			totalCompoundArcher1 += parseToInt(arrow11) + parseToInt(arrow12) + parseToInt(arrow13); 
-      totalCompoundArcher2 += parseToInt(arrow21) + parseToInt(arrow22) + parseToInt(arrow23);
+      let endArcher1 = parseToInt(arrow11) + parseToInt(arrow12) + parseToInt(arrow13);
+      let endArcher2 = parseToInt(arrow21) + parseToInt(arrow22) + parseToInt(arrow23);
+
+      debugger;
+
+			totalCompoundArcher1 += +endArcher1
+      totalCompoundArcher2 += +endArcher2
       
-      document.getElementById('totalScore1').textContent = totalCompoundArcher1;
-      document.getElementById('totalScore2').textContent = totalCompoundArcher2;
+      document.getElementById('setScore1').textContent = totalCompoundArcher1;
+      document.getElementById('setScore2').textContent = totalCompoundArcher2;
+
+      document.getElementById('totalScore1').textContent = endArcher1;
+      document.getElementById('totalScore2').textContent = endArcher2;
     }
-    
-    volleyNumber++;
 
     if(isBarrage()) {
         document.getElementById('arrow12_fill').setAttribute("contenteditable","false");
@@ -359,10 +404,10 @@ function computeTotalCompoundAndDisplay() {
         document.getElementById('arrow22_fill').style.backgroundColor = "#a0a0a0";
         document.getElementById('arrow23_fill').style.backgroundColor = "#a0a0a0";
 
-				document.getElementById('arrow12_fill').textContent = "-";
-        document.getElementById('arrow13_fill').textContent = "-";
-        document.getElementById('arrow22_fill').textContent = "-";
-        document.getElementById('arrow23_fill').textContent = "-";
+				document.getElementById('arrow12_fill').textContent = " ";
+        document.getElementById('arrow13_fill').textContent = " ";
+        document.getElementById('arrow22_fill').textContent = " ";
+        document.getElementById('arrow23_fill').textContent = " ";
     	} else {
 				document.getElementById('arrow12_fill').setAttribute("contenteditable","true");
         document.getElementById('arrow13_fill').setAttribute("contenteditable","true");
@@ -374,19 +419,19 @@ function computeTotalCompoundAndDisplay() {
         document.getElementById('arrow22_fill').style.backgroundColor = "#0E4561";
         document.getElementById('arrow23_fill').style.backgroundColor = "#0E4561";
     	}
-  } else {
-    console.log("Pas de calcul du total compound, les volées ne sont pas complétées !")
-  }
+  // } else {
+  //   console.log("Pas de calcul du total compound, les volées ne sont pas complétées !")
+  // }
 }
 
 function computeSetsAndDisplay(){
     totalScore1 = parseInt(document.getElementById('totalScore1').textContent);
     totalScore2 = parseInt(document.getElementById('totalScore2').textContent);
-    sets1 = parseInt(document.getElementById('setScore1').textContent == '-' 
-    									? 0 : document.getElementById('setScore1').textContent);
-    sets2 = parseInt(document.getElementById('setScore2').textContent == '-' 
-    									? 0 : document.getElementById('setScore2').textContent);
-
+    sets1 = parseInt(document.getElementById('setScore1').textContent == '' 
+    									? 0 : scoreValidated1);
+    sets2 = parseInt(document.getElementById('setScore2').textContent == '' 
+    									? 0 : scoreValidated2);
+                      debugger;
 
 		if(isBarrage()) {
     	if(!isBarrageFullFilled()) {
@@ -421,8 +466,9 @@ function computeSetsAndDisplay(){
           shootOffDiv.appendChild(archer2Won);
           
           archer1Won.addEventListener("click", function() {
-          	sets1 = parseInt(document.getElementById('setScore1').textContent == '-' 
-    									? 0 : document.getElementById('setScore1').textContent);
+            debugger;
+
+          	sets1 = +scoreValidated1;
 
             sets1 += 1;
             shootOffDiv.removeChild(archer1Won);
@@ -443,8 +489,9 @@ function computeSetsAndDisplay(){
           });
 
           archer2Won.addEventListener("click", function() {
-            sets2 = parseInt(document.getElementById('setScore2').textContent == '-' 
-    									? 0 : document.getElementById('setScore2').textContent);
+            debugger;
+
+            sets2 = +scoreValidated2;
             sets2 += 1;
             shootOffDiv.removeChild(archer1Won);
             shootOffDiv.removeChild(archer2Won);
@@ -488,10 +535,10 @@ function computeSetsAndDisplay(){
         document.getElementById('arrow22_fill').style.backgroundColor = "#a0a0a0";
         document.getElementById('arrow23_fill').style.backgroundColor = "#a0a0a0";
 
-				document.getElementById('arrow12_fill').textContent = "-";
-        document.getElementById('arrow13_fill').textContent = "-";
-        document.getElementById('arrow22_fill').textContent = "-";
-        document.getElementById('arrow23_fill').textContent = "-";
+				document.getElementById('arrow12_fill').textContent = " ";
+        document.getElementById('arrow13_fill').textContent = " ";
+        document.getElementById('arrow22_fill').textContent = " ";
+        document.getElementById('arrow23_fill').textContent = " ";
     } else {
 				document.getElementById('arrow12_fill').setAttribute("contenteditable","true");
         document.getElementById('arrow13_fill').setAttribute("contenteditable","true");
@@ -521,18 +568,18 @@ function computeSetsAndDisplay(){
 
 function toggleManualMode() {
 	const checkbox = document.getElementById("checkBoxForManualMode");
-	if(checkbox.checked){
-  	document.getElementById("manualDisplay").disabled = true;
-    document.getElementById("computeVolley").disabled = false;
-    document.getElementById('setScore1_fill').setAttribute("contenteditable","false");
-    document.getElementById('setScore2_fill').setAttribute("contenteditable","false");
+	if (checkbox.checked){
+      document.getElementById("manualDisplay").disabled = true;
+      document.getElementById("computeVolley").disabled = false;
+      document.getElementById('setScore1_fill').setAttribute("contenteditable","false");
+      document.getElementById('setScore2_fill').setAttribute("contenteditable","false");
   } else {
-  	document.getElementById("manualDisplay").disabled = false;
-    document.getElementById("computeVolley").disabled = true;
-    document.getElementById('totalScore1_fill').setAttribute("contenteditable","true");
-    document.getElementById('totalScore2_fill').setAttribute("contenteditable","true");
-    document.getElementById('setScore1_fill').setAttribute("contenteditable","true");
-    document.getElementById('setScore2_fill').setAttribute("contenteditable","true");
+      document.getElementById("manualDisplay").disabled = false;
+      document.getElementById("computeVolley").disabled = true;
+      document.getElementById('totalScore1_fill').setAttribute("contenteditable","true");
+      document.getElementById('totalScore2_fill').setAttribute("contenteditable","true");
+      document.getElementById('setScore1_fill').setAttribute("contenteditable","true");
+      document.getElementById('setScore2_fill').setAttribute("contenteditable","true");
   }
 }
 
@@ -540,17 +587,21 @@ function isCompoundMode() {
 	return document.getElementById("checkBoxForCompoundMode").checked;
 }
 
+function isRecurveMode() {
+	return !isCompoundMode();
+}
+
 function toggleCompoundMode() {
 	const checkbox = document.getElementById("checkBoxForCompoundMode");
-	if(checkbox.checked){
-  	document.getElementById('setScore1').style.backgroundColor = "red";
-    document.getElementById('setScore2').style.backgroundColor = "red";
-    document.getElementById('setScore1').textContent = "";
-    document.getElementById('setScore2').textContent = "";
-  } else {
-  	document.getElementById('setScore1').style.backgroundColor = "#0E4561";
-    document.getElementById('setScore2').style.backgroundColor = "#0E4561";
-    document.getElementById('setScore1').textContent = "0";
-    document.getElementById('setScore2').textContent = "0";
-  }
+	// if(checkbox.checked){
+  // 	document.getElementById('setScore1').style.backgroundColor = "red";
+  //   document.getElementById('setScore2').style.backgroundColor = "red";
+  //   document.getElementById('setScore1').textContent = "";
+  //   document.getElementById('setScore2').textContent = "";
+  // } else {
+  // 	document.getElementById('setScore1').style.backgroundColor = "#0E4561";
+  //   document.getElementById('setScore2').style.backgroundColor = "#0E4561";
+  //   document.getElementById('setScore1').textContent = "0";
+  //   document.getElementById('setScore2').textContent = "0";
+  // }
 }
